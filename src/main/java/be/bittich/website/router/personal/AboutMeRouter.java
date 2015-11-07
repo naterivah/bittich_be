@@ -75,7 +75,7 @@ public class AboutMeRouter extends SpringRouteBuilder {
                 .delete("/delete/{id}")
                 .id("AboutMeRouter.Delete")
                 .route()
-                    .filter().simple("${body.id} == null").to(NOT_FOUND).end()
+                    .filter().simple("${headers.id} == null").to(NOT_FOUND).end()
                     .setHeader(HEADER_DOMAIN, constant(DOMAIN))
                      .setHeader(HEADER_IP_ADDRESS, simple(NETTY_HEADER, String.class))
                     .setHeader(HEADER_ACTION, constant(DELETE_ACTION))
