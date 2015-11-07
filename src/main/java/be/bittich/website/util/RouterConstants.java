@@ -1,9 +1,13 @@
 package be.bittich.website.util;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.camel.Processor;
+
 import static be.bittich.website.util.RouterConstants.*;
 
 /**
  * Created by Nordine on 18-10-15.
  */
+@Slf4j
 public final class RouterConstants {
 
 
@@ -15,7 +19,7 @@ public final class RouterConstants {
     public static final  String DELETE_ACTION = "deleteAction";
 
     public static final  String MEDIA_TYPE = "application/json";
-    public static final  String NETTY_HEADER = "CamelNettyRemoteAddress";
+    public static final  String NETTY_HEADER = "${headers.CamelNettyRemoteAddress}";
 
 
     public static final String  HEADER_ACTION = "CamelHeaderAction";
@@ -25,7 +29,9 @@ public final class RouterConstants {
 
     public static final String DISPATCHER_ENDPOINT = "jms:topic:Dispatcher";
 
-    public static String ACKNOWLEDMENT_OK = "direct:ackOk";
+    public static String ACKNOWLEDGMENT_OK = "direct:ackOk";
     public static final String NOT_FOUND = "direct:notFound";
+
+
 
 }

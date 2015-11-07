@@ -2,6 +2,7 @@ package be.bittich.website.router;
 
 import be.bittich.website.util.RestMessage;
 import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.spring.SpringRouteBuilder;
 
@@ -15,11 +16,10 @@ import static be.bittich.website.util.RouterConstants.*;
 public class GlobalRouteBuilder extends SpringRouteBuilder {
 
 
-
     @Override
     public void configure() throws Exception {
 
-        from(ACKNOWLEDMENT_OK)
+        from(ACKNOWLEDGMENT_OK)
                 .routeId("Ack.OK")
                 .description("sends an ack ok as a response for asynchronous command")
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(202))

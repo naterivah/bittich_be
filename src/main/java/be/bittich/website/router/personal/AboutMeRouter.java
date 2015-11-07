@@ -28,7 +28,7 @@ public class AboutMeRouter extends SpringRouteBuilder {
                     .id("AboutMeRouter.Home")
                     .route()
                         .setHeader(HEADER_DOMAIN, constant(DOMAIN))
-                        .setHeader(HEADER_IP_ADDRESS, header(NETTY_HEADER))
+                        .setHeader(HEADER_IP_ADDRESS, simple(NETTY_HEADER, String.class))
                         .setHeader(HEADER_ACTION, constant(LIST_ACTION))
                         .inOnly(DISPATCHER_ENDPOINT)
                         .to("bean:aboutMeRepository?method=findAll()")
@@ -38,7 +38,7 @@ public class AboutMeRouter extends SpringRouteBuilder {
                     .id("AboutMeRouter.GetById")
                     .route()
                         .setHeader(HEADER_DOMAIN, constant(DOMAIN))
-                        .setHeader(HEADER_IP_ADDRESS, header(NETTY_HEADER))
+                        .setHeader(HEADER_IP_ADDRESS, simple(NETTY_HEADER, String.class))
                         .setHeader(HEADER_ACTION, constant(GET_BY_ID_ACTION))
                         .inOnly(DISPATCHER_ENDPOINT)
                         .setBody(simple(HEADER_ID, Long.class))
@@ -56,7 +56,7 @@ public class AboutMeRouter extends SpringRouteBuilder {
                     .setHeader(HEADER_DOMAIN, constant(DOMAIN))
                     .setHeader(HEADER_ACTION, constant(ADD_ACTION))
                     .inOnly(DISPATCHER_ENDPOINT)
-                    .to(ACKNOWLEDMENT_OK)
+                    .to(ACKNOWLEDGMENT_OK)
                 .endRest()
 
                 .post("/edit")
@@ -67,7 +67,7 @@ public class AboutMeRouter extends SpringRouteBuilder {
                     .setHeader(HEADER_DOMAIN, constant(DOMAIN))
                     .setHeader(HEADER_ACTION, constant(EDIT_ACTION))
                     .inOnly(DISPATCHER_ENDPOINT)
-                    .to(ACKNOWLEDMENT_OK)
+                    .to(ACKNOWLEDGMENT_OK)
                 .endRest()
 
                 .delete("/delete/{id}")
@@ -77,7 +77,7 @@ public class AboutMeRouter extends SpringRouteBuilder {
                     .setHeader(HEADER_ACTION, constant(EDIT_ACTION))
                     .setHeader(HEADER_ACTION, constant(DELETE_ACTION))
                     .inOnly(DISPATCHER_ENDPOINT)
-                    .to(ACKNOWLEDMENT_OK)
+                    .to(ACKNOWLEDGMENT_OK)
                 .endRest()
         ;
     }
