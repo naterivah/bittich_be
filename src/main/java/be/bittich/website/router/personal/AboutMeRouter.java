@@ -34,7 +34,7 @@ public class AboutMeRouter extends SpringRouteBuilder {
                         .to("bean:aboutMeRepository?method=findAll()")
                 .endRest()
 
-                .get("/get/{id}")
+                .get("/{id}")
                     .id("AboutMeRouter.GetById")
                     .route()
                         .setHeader(HEADER_DOMAIN, constant(DOMAIN))
