@@ -15,10 +15,12 @@ public final class RouterConstants {
     public static final  String DELETE_ACTION = "deleteAction";
 
     public static final  String MEDIA_TYPE = "application/json";
+    public static final  String NETTY_HEADER = "CamelNettyRemoteAddress";
 
 
     public static final String  HEADER_ACTION = "CamelHeaderAction";
     public static final String  HEADER_DOMAIN = "CamelHeaderDomain";
+    public static final String  HEADER_IP_ADDRESS = "CamelHeaderIpAddress";
     public static final String  HEADER_ID = "${headers.id}";
 
     public static final String DISPATCHER_ENDPOINT = "jms:topic:Dispatcher";
