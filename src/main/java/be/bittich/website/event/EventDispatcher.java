@@ -18,7 +18,7 @@ public class EventDispatcher extends SpringRouteBuilder {
     public void configure() throws Exception {
 
         from(DISPATCHER_ENDPOINT)
-                .id("EventDispatcher.dispatch")
+                .routeId("EventDispatcher.dispatch")
                 .toD(String.format("jms:topic:${headers.%s}", HEADER_DOMAIN), true) //ignore invalid endpoint
                 ;
 

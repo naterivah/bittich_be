@@ -26,7 +26,7 @@ public class AboutMeEventConsumer extends SpringRouteBuilder {
         ;
 
         from("jms:topic:AboutMe")
-                .id("AboutMeEventConsumer.CBR")
+                .routeId("AboutMeEventConsumer.CBR")
                 .filter(header(HEADER_DOMAIN).isEqualTo(constant(ABOUTME_DOMAIN)))
                     .toD(String.format("jms:queue:${headers.%s}.${headers.%s}", HEADER_DOMAIN, HEADER_ACTION))
                 .end()
@@ -34,17 +34,17 @@ public class AboutMeEventConsumer extends SpringRouteBuilder {
 
 
         from(ABOUT_ME_ADD_ACTION)
-            .id("AboutMeEventConsumer.AddAction")
+            .routeId("AboutMeEventConsumer.AddAction")
             .to("bean:aboutMeRepository?method=save")
         ;
 
         from(ABOUT_ME_EDIT_ACTION)
-                .id("AboutMeEventConsumer.Edit")
+                .routeId("AboutMeEventConsumer.Edit")
                 .to(ABOUT_ME_ADD_ACTION)
         ;
 
         from(ABOUT_ME_DELETE_ACTION)
-                .id("AboutMeEventConsumer.Delete")
+                .routeId("AboutMeEventConsumer.Delete")
                 .setBody(simple(HEADER_ID, Long.class))
                 .to("bean:aboutMeRepository?method=findOne")
                 .choice()
