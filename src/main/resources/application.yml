@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: Bittich.[be]
+    index: http://www.bittich.be
+  mail:
+    host: SSL0.OVH.NET
+    port: 465
+    username: dev@bittich.be
+    password: K8pupsTm
+    default-encoding: UTF-8
+    properties:
+      mail:
+        protocol: smtp
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+  activemq:
+    pooled: true
+
+bittich:
+  mail:
+    to: nordinetrash@outlook.com
+    from: contact@bittich.be
+  datetime-format: dd/MM/yyyy HH:mm:ss
+
+camel:
+  netty:
+    port: 8008
+    host: localhost
