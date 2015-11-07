@@ -51,7 +51,7 @@ public class AboutMeEventConsumer extends SpringRouteBuilder {
                     .when(body().isNotNull())
                         .to("bean:aboutMeRepository?method=delete")
                     .otherwise()
-                        .throwException(new RuntimeException("Id should not be null!"))
+                        .throwException(new RuntimeException("Id doesn't exist!"))
                 .endChoice()
         ;
 
