@@ -6,6 +6,7 @@ import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.spring.SpringRouteBuilder;
 
 import javax.inject.Named;
+import static be.bittich.website.util.RouterConstants.*;
 
 /**
  * Created by Nordine on 20-10-15.
@@ -13,8 +14,7 @@ import javax.inject.Named;
 @Named
 public class GlobalRouteBuilder extends SpringRouteBuilder {
 
-    public static String ACKNOWLEDMENT_OK = "direct:ackOk";
-    public static final String NOT_FOUND = "direct:notFound";
+
 
     @Override
     public void configure() throws Exception {

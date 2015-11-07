@@ -5,7 +5,6 @@ import org.apache.camel.spring.SpringRouteBuilder;
 
 import javax.inject.Named;
 
-import static be.bittich.website.router.GlobalRouteBuilder.*;
 import static be.bittich.website.util.RouterConstants.*;
 
 
@@ -15,7 +14,7 @@ import static be.bittich.website.util.RouterConstants.*;
 @Named
 public class AboutMeRouter extends SpringRouteBuilder {
 
-    public static final String ABOUTME_DOMAIN_ENDPOINT = "jms:topic:Aboutme";
+    public static final String DOMAIN = "AboutMe";
 
 
     @Override
@@ -25,32 +24,36 @@ public class AboutMeRouter extends SpringRouteBuilder {
                 .description("AboutMe Api")
                 .produces(MEDIA_TYPE)
 
-                .get().id("AboutMeRouter.Home")
-                .route()
-                    .setHeader(HEADER_ACTION, constant(LIST_ACTION))
-                    .inOnly(ABOUTME_DOMAIN_ENDPOINT)
-                    .to("bean:aboutMeRepository?method=findAll()")
+                .get()
+                    .id("AboutMeRouter.Home")
+                    .route()
+                        .setHeader(HEADER_DOMAIN, constant(DOMAIN))
+                        .setHeader(HEADER_ACTION, constant(LIST_ACTION))
+                        .inOnly(DISPATCHER_ENDPOINT)
+                        .to("bean:aboutMeRepository?method=findAll()")
                 .endRest()
 
                 .get("/get/{id}")
-                .id("AboutMeRouter.GetById")
-                .route()
-                    .setHeader(HEADER_ACTION, constant(GET_BY_ID_ACTION))
-                    .inOnly(ABOUTME_DOMAIN_ENDPOINT)
-                    .setBody(simple(HEADER_ID, Long.class))
-                    .to("bean:aboutMeRepository?method=findOne")
-                    .choice()
-                        .when(body().isNull())
-                        .to(NOT_FOUND)
-                     .end()
+                    .id("AboutMeRouter.GetById")
+                    .route()
+                        .setHeader(HEADER_DOMAIN, constant(DOMAIN))
+                        .setHeader(HEADER_ACTION, constant(GET_BY_ID_ACTION))
+                        .inOnly(DISPATCHER_ENDPOINT)
+                        .setBody(simple(HEADER_ID, Long.class))
+                        .to("bean:aboutMeRepository?method=findOne")
+                        .choice()
+                            .when(body().isNull())
+                            .to(NOT_FOUND)
+                        .endChoice()
                 .endRest()
 
                 .put("/add")
                 .id("AboutMeRouter.Add")
                 .type(AboutMe.class)
                 .route()
+                    .setHeader(HEADER_DOMAIN, constant(DOMAIN))
                     .setHeader(HEADER_ACTION, constant(ADD_ACTION))
-                    .inOnly(ABOUTME_DOMAIN_ENDPOINT)
+                    .inOnly(DISPATCHER_ENDPOINT)
                     .to(ACKNOWLEDMENT_OK)
                 .endRest()
 
@@ -59,8 +62,9 @@ public class AboutMeRouter extends SpringRouteBuilder {
                 .type(AboutMe.class)
                 .route()
                     .filter().simple("${body.id} == null").to(NOT_FOUND).end()
+                    .setHeader(HEADER_DOMAIN, constant(DOMAIN))
                     .setHeader(HEADER_ACTION, constant(EDIT_ACTION))
-                    .inOnly(ABOUTME_DOMAIN_ENDPOINT)
+                    .inOnly(DISPATCHER_ENDPOINT)
                     .to(ACKNOWLEDMENT_OK)
                 .endRest()
 
@@ -68,10 +72,10 @@ public class AboutMeRouter extends SpringRouteBuilder {
                 .id("AboutMeRouter.Delete")
                 .route()
                     .filter().simple("${body.id} == null").to(NOT_FOUND).end()
+                    .setHeader(HEADER_ACTION, constant(EDIT_ACTION))
                     .setHeader(HEADER_ACTION, constant(DELETE_ACTION))
-                    .inOnly(ABOUTME_DOMAIN_ENDPOINT)
+                    .inOnly(DISPATCHER_ENDPOINT)
                     .to(ACKNOWLEDMENT_OK)
-
                 .endRest()
         ;
     }
