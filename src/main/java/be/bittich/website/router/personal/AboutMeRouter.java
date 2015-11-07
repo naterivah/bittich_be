@@ -27,7 +27,6 @@ public class AboutMeRouter extends SpringRouteBuilder {
                 .get()
                     .id("AboutMeRouter.Home")
                     .route()
-                        .log("${headers.CamelNettyRemoteAddress}")
                         .setHeader(HEADER_DOMAIN, constant(DOMAIN))
                         .setHeader(HEADER_IP_ADDRESS, header(NETTY_HEADER))
                         .setHeader(HEADER_ACTION, constant(LIST_ACTION))
