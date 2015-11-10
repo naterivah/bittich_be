@@ -40,7 +40,8 @@ public class AboutMeEventConsumer extends SpringRouteBuilder {
 
         from(ABOUT_ME_EDIT_ACTION)
                 .routeId("AboutMeEventConsumer.Edit")
-                .to(ABOUT_ME_ADD_ACTION)
+                .to("bean:aboutMeRepository?method=save")
+
         ;
 
         from(ABOUT_ME_DELETE_ACTION)

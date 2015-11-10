@@ -1,4 +1,4 @@
-package be.bittich.website.repository;
+package be.bittich.website.repository.personal;
 
 import be.bittich.website.domain.personal.AboutMe;
 import org.springframework.data.jpa.repository.JpaRepository;
