@@ -20,12 +20,6 @@ public class RestConfig extends SpringRouteBuilder {
     @Value("${camel.netty.host}")
     private String host;
 
-    private final NettyHttpSecurityConfiguration nettyHttpSecurityConfiguration;
-
-    @Inject
-    public RestConfig(NettyHttpSecurityConfiguration nettyHttpSecurityConfiguration) {
-        this.nettyHttpSecurityConfiguration = nettyHttpSecurityConfiguration;
-    }
 
 
     @Override
