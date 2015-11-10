@@ -21,7 +21,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends AbstractDomain implements Principal {
+public class User extends AbstractDomain{
 
     @Id
     @GeneratedValue
@@ -36,13 +36,10 @@ public class User extends AbstractDomain implements Principal {
     @Length(min = 6, max = 15)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "roles_user")
+    @Column(name = "roles")
     @Singular
-    private Set<Action> actions;
-
-    @Override
-    @Transient
-    public String getName() {
-        return email;
-    }
+    private Set<Role> roles;
 }

@@ -1,6 +1,5 @@
 package be.bittich.website.repository.security;
 
-import be.bittich.website.domain.security.Action;
 import be.bittich.website.domain.security.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,5 +10,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> {
 
-    User findOneByEmailOrUsername(String email,String username);
+    User findOneByEmailOrUsername(String email, String username);
 }
