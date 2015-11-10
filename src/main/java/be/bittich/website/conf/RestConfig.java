@@ -2,6 +2,7 @@ package be.bittich.website.conf;
 
 import org.apache.camel.component.netty4.http.NettyHttpSecurityConfiguration;
 import org.apache.camel.model.rest.RestBindingMode;
+import org.apache.camel.spi.AuthorizationPolicy;
 import org.apache.camel.spring.SpringRouteBuilder;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -41,8 +42,6 @@ public class RestConfig extends SpringRouteBuilder {
 
 
         ;
-
-
 
 
 
