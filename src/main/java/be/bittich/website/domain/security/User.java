@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import java.security.Principal;
 import java.util.Set;
 
 /**
@@ -20,7 +21,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends AbstractDomain {
+public class User extends AbstractDomain implements Principal {
 
     @Id
     @GeneratedValue
@@ -39,4 +40,9 @@ public class User extends AbstractDomain {
     @Singular
     private Set<Action> actions;
 
+    @Override
+    @Transient
+    public String getName() {
+        return email;
+    }
 }

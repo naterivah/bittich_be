@@ -5,7 +5,11 @@ import be.bittich.website.domain.security.Action;
 import be.bittich.website.domain.security.User;
 import be.bittich.website.util.RouterConstants;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.camel.LoggingLevel;
 import org.apache.camel.component.jms.JmsComponent;
+import org.apache.camel.component.netty4.http.NettyHttpSecurityConfiguration;
+import org.apache.camel.component.netty4.http.SecurityConstraint;
+import org.apache.camel.component.netty4.http.SecurityConstraintMapping;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -49,6 +53,8 @@ public class ContextConfiguration implements CommandLineRunner {
     public CacheManager cacheManager() {
         return new EhCacheCacheManager(ehCacheCacheManager().getObject());
     }
+
+
 
     @Bean
     public EhCacheManagerFactoryBean ehCacheCacheManager() {

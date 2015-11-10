@@ -11,6 +11,14 @@
             memoryStoreEvictionPolicy="LRU"
             eternal="false">
     </defaultCache>
-
+    <cache name="tokenStore"
+           maxElementsInMemory="10000"
+           maxElementsOnDisk="50000"
+           eternal="false"
+           diskSpoolBufferSizeMB="50"
+           timeToIdleSeconds="60" timeToLiveSeconds="120"
+           memoryStoreEvictionPolicy="LRU"
+           diskPersistent="true">
+    </cache>
 
 </ehcache>

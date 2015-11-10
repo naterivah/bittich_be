@@ -11,6 +11,9 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.security.auth.Subject;
+import java.beans.Transient;
+import java.security.Principal;
 
 /**
  * Created by Nordine on 08-11-15.
@@ -28,6 +31,8 @@ public class Action extends AbstractDomain {
             .domain("*")
             .method(Method.ALL)
             .build();
+
+
 
     public enum Method{ GET, PUT, POST, DELETE, OPTIONS, ALL}
 

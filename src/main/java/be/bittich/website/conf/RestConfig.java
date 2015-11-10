@@ -1,9 +1,11 @@
 package be.bittich.website.conf;
 
+import org.apache.camel.component.netty4.http.NettyHttpSecurityConfiguration;
 import org.apache.camel.model.rest.RestBindingMode;
 import org.apache.camel.spring.SpringRouteBuilder;
 import org.springframework.beans.factory.annotation.Value;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 
 /**
@@ -17,6 +19,13 @@ public class RestConfig extends SpringRouteBuilder {
     @Value("${camel.netty.host}")
     private String host;
 
+    private final NettyHttpSecurityConfiguration nettyHttpSecurityConfiguration;
+
+    @Inject
+    public RestConfig(NettyHttpSecurityConfiguration nettyHttpSecurityConfiguration) {
+        this.nettyHttpSecurityConfiguration = nettyHttpSecurityConfiguration;
+    }
+
 
     @Override
     public void configure() throws Exception {
@@ -29,6 +38,7 @@ public class RestConfig extends SpringRouteBuilder {
                 .dataFormatProperty("prettyPrint", "true")
                 .component("netty4-http")
                 .port(port)
+
 
         ;
 
