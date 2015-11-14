@@ -18,10 +18,9 @@ public class StatisticEventConsumer extends SpringRouteBuilder {
 
         from(DISPATCHER_ENDPOINT)
                 .routeId("StatisticEventConsumer.statistics")
-                .log(String.format("\nDomain:${headers.%s}\nAction:${headers.%s}\nIpAddress:${headers.%s}\nMethod:${headers.%s}",
+                .log(String.format("\nDomain:${headers.%s}\nAction:${headers.%s}\nMethod:${headers.%s}",
                         HEADER_DOMAIN,
                         HEADER_ACTION,
-                        HEADER_IP_ADDRESS,
                         HTTP_METHOD
                 ))
         ;

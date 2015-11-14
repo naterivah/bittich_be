@@ -98,7 +98,7 @@
 
 		<dependency>
 			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-netty4-http</artifactId>
+			<artifactId>camel-spark-rest</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
 		<dependency>

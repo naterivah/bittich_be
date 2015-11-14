@@ -4,7 +4,10 @@ import be.bittich.website.domain.personal.AboutMe;
 import be.bittich.website.domain.security.Role;
 import be.bittich.website.domain.security.User;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jms.JmsComponent;
+import org.apache.camel.model.rest.RestBindingMode;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
@@ -12,6 +15,7 @@ import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jms.annotation.EnableJms;
@@ -20,6 +24,10 @@ import javax.inject.Inject;
 import javax.jms.ConnectionFactory;
 import javax.sql.DataSource;
 import be.bittich.website.repository.personal.AboutMeRepository;
+
+
+import static spark.Spark.*;
+
 /**
  * Created by Nordine on 07-11-15.
  */
@@ -28,6 +36,11 @@ import be.bittich.website.repository.personal.AboutMeRepository;
 @Slf4j
 @Configuration
 public class ContextConfiguration implements CommandLineRunner {
+
+    @Value("${camel.server.port}")
+    private int port;
+    @Value("${camel.server.host}")
+    private String host;
 
     @Inject
     private AboutMeRepository aboutMeRepository;
@@ -61,6 +74,36 @@ public class ContextConfiguration implements CommandLineRunner {
         JmsComponent component = JmsComponent.jmsComponentTransacted(connectionFactory);
         component.setConcurrentConsumers(1);
         return component;
+    }
+
+    @Bean
+    @Inject
+    public RouteBuilder restConfig(SecurityRestFilter securityRestFilter){
+        return new RouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+
+                port(port);
+
+                // spark config
+                staticFileLocation("/public");
+
+                securityRestFilter.configure();
+
+                restConfiguration()
+                        .bindingMode(RestBindingMode.json)
+                        .enableCORS(true)
+                        .dataFormatProperty("prettyPrint", "true")
+                        .component("spark-rest")
+                ;
+
+            }
+        };
+    }
+    @Bean
+    @Inject
+    public SecurityRestFilter securityRestFilter(UserRepository userRepository, CacheManager cacheManager){
+        return new SecurityRestFilter(userRepository,cacheManager);
     }
 
     @Override

@@ -8,8 +8,6 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import java.security.Principal;
 import java.util.Set;
 
 /**
