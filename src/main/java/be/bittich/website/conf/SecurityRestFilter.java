@@ -9,6 +9,7 @@ import org.apache.camel.spring.boot.CamelAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -21,18 +22,21 @@ import static spark.Spark.*;
 /**
  * Created by Nordine on 10-11-15.
  */
+@Named
 @Slf4j
 public class SecurityRestFilter  {
 
-    public static final String DOMAIN = "SecurityRest";
 
     private final UserRepository userRepository;
     private final CacheManager cacheManager;
+    private final BCryptPasswordEncoder encoder;
 
 
-    public SecurityRestFilter(UserRepository userRepository, CacheManager cacheManager) {
+    @Inject
+    public SecurityRestFilter(UserRepository userRepository, CacheManager cacheManager, BCryptPasswordEncoder encoder) {
         this.userRepository = userRepository;
         this.cacheManager = cacheManager;
+        this.encoder = encoder;
     }
 
     public void configure(){
@@ -40,7 +44,7 @@ public class SecurityRestFilter  {
         log.info("Configuring the security context of the application...");
 
 
-        before("/aboutme", (request, response) -> {
+        before("/aboutme/*", (request, response) -> {
 
             String token = request.headers("X-Auth-Token");
 
@@ -62,7 +66,7 @@ public class SecurityRestFilter  {
 
             if (Objects.isNull(user)) halt(403, "User not found");
 
-            if (!user.getPassword().equals(password)) halt(403, "Password incorrect");
+            if (!user.getPassword().equals(encoder.encode(password))) halt(403, "Password incorrect");
 
             String uuid = UUID.randomUUID().toString();
 

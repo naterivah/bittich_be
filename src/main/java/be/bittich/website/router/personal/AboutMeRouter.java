@@ -24,7 +24,7 @@ public class AboutMeRouter extends SpringRouteBuilder {
                 .description("AboutMe Api")
                 .produces(MEDIA_TYPE)
 
-                .get()
+                .get("/")
                     .id("AboutMeRouter.Home")
                     .to("direct:isAuthorized")
                     .route()

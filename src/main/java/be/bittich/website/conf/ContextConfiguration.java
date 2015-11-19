@@ -15,7 +15,6 @@ import org.springframework.cache.ehcache.EhCacheCacheManager;
 import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jms.annotation.EnableJms;
@@ -24,6 +23,7 @@ import javax.inject.Inject;
 import javax.jms.ConnectionFactory;
 import javax.sql.DataSource;
 import be.bittich.website.repository.personal.AboutMeRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 import static spark.Spark.*;
@@ -84,7 +84,7 @@ public class ContextConfiguration implements CommandLineRunner {
             public void configure() throws Exception {
 
                 port(port);
-
+                ipAddress(host);
                 // spark config
                 staticFileLocation("/public");
 
@@ -100,11 +100,14 @@ public class ContextConfiguration implements CommandLineRunner {
             }
         };
     }
+
     @Bean
-    @Inject
-    public SecurityRestFilter securityRestFilter(UserRepository userRepository, CacheManager cacheManager){
-        return new SecurityRestFilter(userRepository,cacheManager);
+    public BCryptPasswordEncoder bCryptPasswordEncoder(){
+        return new BCryptPasswordEncoder();
     }
+
+    @Inject
+    private BCryptPasswordEncoder encoder;
 
     @Override
     public void run(String... strings) throws Exception {
@@ -118,7 +121,7 @@ public class ContextConfiguration implements CommandLineRunner {
         User user = User.builder()
                 .username("nbittich")
                 .email("nordine1@hotmail.com")
-                .password("kikoolol")
+                .password(encoder.encode("kikoolol"))
                 .role(Role.ROLE_ADMIN)
                 .role(Role.ROLE_MODERATOR)
                 .role(Role.ROLE_USER)
