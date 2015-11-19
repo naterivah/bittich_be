@@ -59,7 +59,8 @@ public class SecurityRestFilter {
             User user = cacheManager.getCache("tokenStore").get(token, User.class);
 
             if (Objects.isNull(user)) halt(401, "Unauthorized");
-            if (!user.getRemoteClients().stream().anyMatch(r -> r.getIp().equals(ipAddress))) {
+
+            if (!user.getRemoteClients().stream().anyMatch(r -> Objects.equals(r.getIp(),ipAddress))) {
                 log.info("Attempt to use a token generated with another ip address");
                 halt(401, "Unauthorized");
             }
