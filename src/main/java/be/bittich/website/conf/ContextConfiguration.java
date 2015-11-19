@@ -24,6 +24,7 @@ import javax.jms.ConnectionFactory;
 import javax.sql.DataSource;
 import be.bittich.website.repository.personal.AboutMeRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 import static spark.Spark.*;
@@ -107,7 +108,7 @@ public class ContextConfiguration implements CommandLineRunner {
     }
 
     @Inject
-    private BCryptPasswordEncoder encoder;
+    private PasswordEncoder encoder;
 
     @Override
     public void run(String... strings) throws Exception {
@@ -121,7 +122,7 @@ public class ContextConfiguration implements CommandLineRunner {
         User user = User.builder()
                 .username("nbittich")
                 .email("nordine1@hotmail.com")
-                .password(encoder.encode("kikoolol"))
+                .password(encoder.encode("kikoololmdr"))
                 .role(Role.ROLE_ADMIN)
                 .role(Role.ROLE_MODERATOR)
                 .role(Role.ROLE_USER)

@@ -23,6 +23,7 @@ public class AboutMeRouter extends SpringRouteBuilder {
         rest("/aboutme")
                 .description("AboutMe Api")
                 .produces(MEDIA_TYPE)
+                .consumes(MEDIA_TYPE)
 
                 .get("/")
                     .id("AboutMeRouter.Home")
@@ -48,7 +49,7 @@ public class AboutMeRouter extends SpringRouteBuilder {
                         .endChoice()
                 .endRest()
 
-                .put("/add")
+                .put("/protected/add")
                 .id("AboutMeRouter.Add")
                 .type(AboutMe.class)
                 .route()
@@ -58,7 +59,7 @@ public class AboutMeRouter extends SpringRouteBuilder {
                     .to(ACKNOWLEDGMENT_OK)
                 .endRest()
 
-                .post("/edit")
+                .post("/protected/edit")
                 .id("AboutMeRouter.Edit")
                 .type(AboutMe.class)
                 .route()
@@ -69,7 +70,7 @@ public class AboutMeRouter extends SpringRouteBuilder {
                     .to(ACKNOWLEDGMENT_OK)
                 .endRest()
 
-                .delete("/delete/{id}")
+                .delete("/protected/delete/{id}")
                 .id("AboutMeRouter.Delete")
                 .route()
                     .filter().simple("${headers.id} == null").to(NOT_FOUND).end()

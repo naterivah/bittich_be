@@ -5,6 +5,7 @@ import org.apache.camel.spring.SpringRouteBuilder;
 
 import javax.inject.Named;
 import static be.bittich.website.util.RouterConstants.*;
+import static java.lang.String.format;
 import static org.apache.camel.Exchange.*;
 
 /**
@@ -18,10 +19,11 @@ public class StatisticEventConsumer extends SpringRouteBuilder {
 
         from(DISPATCHER_ENDPOINT)
                 .routeId("StatisticEventConsumer.statistics")
-                .log(String.format("\nDomain:${headers.%s}\nAction:${headers.%s}\nMethod:${headers.%s}",
+                .log(format("\nDomain:${headers.%s}\nAction:${headers.%s}\nMethod:${headers.%s}\nPayload:%s",
                         HEADER_DOMAIN,
                         HEADER_ACTION,
-                        HTTP_METHOD
+                        HTTP_METHOD,
+                        CAMEL_BODY
                 ))
         ;
     }

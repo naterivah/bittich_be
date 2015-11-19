@@ -20,7 +20,7 @@ public final class RouterConstants {
 
     public static final  String MEDIA_TYPE = "application/json";
 
-
+    public static final String  CAMEL_BODY = "${body}";
     public static final String  HEADER_ACTION = "CamelHeaderAction";
     public static final String  HEADER_DOMAIN = "CamelHeaderDomain";
     public static final String  HEADER_ID = "${headers.id}";

@@ -31,8 +31,9 @@ public class User extends AbstractDomain{
     @Email
     private String email;
     @NotBlank
-    @Length(min = 6, max = 15)
     private String password;
+
+    private int failedPassword;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
@@ -40,4 +41,16 @@ public class User extends AbstractDomain{
     @Column(name = "roles")
     @Singular
     private Set<Role> roles;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Singular
+    private Set<RemoteClient> remoteClients;
+
+
+    public void addRemoteClient(RemoteClient remoteClient){
+        remoteClients.add(remoteClient);
+    }
+    public void incrementFailedLogin(){
+        this.failedPassword += 1;
+    }
 }

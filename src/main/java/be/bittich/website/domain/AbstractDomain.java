@@ -1,6 +1,8 @@
 package be.bittich.website.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -12,10 +14,13 @@ import java.util.Date;
 @MappedSuperclass
 public abstract class AbstractDomain implements Serializable {
 
+    @JsonIgnore
     private Timestamp createdDate;
 
+    @JsonIgnore
     private Timestamp updatedDate;
 
+    @JsonIgnore
     private Long version;
 
     @Version
