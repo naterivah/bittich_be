@@ -1,10 +1,11 @@
 package be.bittich.website.event;
 
 import org.apache.camel.spring.SpringRouteBuilder;
-import static be.bittich.website.util.RouterConstants.*;
 
 import javax.inject.Named;
-import static be.bittich.website.util.RouterConstants.*;
+
+import static be.bittich.website.util.RouterConstants.DISPATCHER_ENDPOINT;
+import static be.bittich.website.util.RouterConstants.HEADER_DOMAIN;
 
 /**
  * Created by Nordine on 07-11-15.

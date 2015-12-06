@@ -2,7 +2,10 @@
          xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
          updateCheck="true"
          monitoring="autodetect"
+         name="bittich_be_cache"
          dynamicConfig="true">
+
+    <diskStore path="/tmp/store"/>
 
     <defaultCache
             maxElementsInMemory="1000"

@@ -28,9 +28,11 @@ public class AboutMeEventConsumer extends SpringRouteBuilder {
         from("jms:topic:AboutMe")
                 .routeId("AboutMeEventConsumer.CBR")
                 .filter(header(HEADER_DOMAIN).isEqualTo(constant(ABOUTME_DOMAIN)))
-                    .toD(String.format("jms:queue:${headers.%s}.${headers.%s}", HEADER_DOMAIN, HEADER_ACTION))
+                    .toD(String.format("jms:queue:${headers.%s}.${headers.%s}", HEADER_DOMAIN, HEADER_ACTION),true)
                 .end()
+
         ;
+
 
 
         from(ABOUT_ME_ADD_ACTION)

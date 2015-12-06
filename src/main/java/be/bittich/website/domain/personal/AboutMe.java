@@ -5,13 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.*;
 
 /**
  * Created by Nordine on 07-11-15.
@@ -21,7 +16,7 @@ import javax.persistence.Lob;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cacheable
 public class AboutMe extends AbstractDomain {
 
     @Id

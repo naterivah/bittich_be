@@ -3,31 +3,26 @@ package be.bittich.website.conf;
 import be.bittich.website.domain.personal.AboutMe;
 import be.bittich.website.domain.security.Role;
 import be.bittich.website.domain.security.User;
+import be.bittich.website.repository.personal.AboutMeRepository;
+import be.bittich.website.repository.security.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jms.JmsComponent;
 import org.apache.camel.model.rest.RestBindingMode;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.ehcache.EhCacheCacheManager;
-import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jms.annotation.EnableJms;
-import be.bittich.website.repository.security.UserRepository;
-import javax.inject.Inject;
-import javax.jms.ConnectionFactory;
-import javax.sql.DataSource;
-import be.bittich.website.repository.personal.AboutMeRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.inject.Inject;
+import javax.jms.ConnectionFactory;
+import javax.sql.DataSource;
 
-import static spark.Spark.*;
 
 /**
  * Created by Nordine on 07-11-15.
@@ -55,20 +50,7 @@ public class ContextConfiguration implements CommandLineRunner {
         return new JdbcTemplate(dataSource);
     }
 
-    @Bean
-    public CacheManager cacheManager() {
-        return new EhCacheCacheManager(ehCacheCacheManager().getObject());
-    }
 
-
-
-    @Bean
-    public EhCacheManagerFactoryBean ehCacheCacheManager() {
-        EhCacheManagerFactoryBean cmfb = new EhCacheManagerFactoryBean();
-        cmfb.setConfigLocation(new ClassPathResource("ehcache.xml"));
-        cmfb.setShared(true);
-        return cmfb;
-    }
     @Bean
     @Inject
     public JmsComponent activeMQComponent(ConnectionFactory connectionFactory) {
@@ -78,24 +60,17 @@ public class ContextConfiguration implements CommandLineRunner {
     }
 
     @Bean
-    @Inject
-    public RouteBuilder restConfig(SecurityRestFilter securityRestFilter){
+    public RouteBuilder restConfig(){
         return new RouteBuilder() {
             @Override
             public void configure() throws Exception {
-
-                port(port);
-                ipAddress(host);
-                // spark config
-                staticFileLocation("/public");
-
-                securityRestFilter.configure();
-
                 restConfiguration()
                         .bindingMode(RestBindingMode.json)
+                        .port(port)
+                        .host(host)
                         .enableCORS(true)
                         .dataFormatProperty("prettyPrint", "true")
-                        .component("spark-rest")
+                        .component("netty4-http")
                 ;
 
             }

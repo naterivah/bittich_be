@@ -4,7 +4,6 @@ import be.bittich.website.domain.AbstractDomain;
 import com.sun.istack.NotNull;
 import lombok.*;
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;

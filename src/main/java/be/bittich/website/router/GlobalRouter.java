@@ -2,18 +2,20 @@ package be.bittich.website.router;
 
 import be.bittich.website.util.RestMessage;
 import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.spring.SpringRouteBuilder;
 
 import javax.inject.Named;
-import static be.bittich.website.util.RouterConstants.*;
+
+import static be.bittich.website.util.RouterConstants.ACKNOWLEDGMENT_OK;
+import static be.bittich.website.util.RouterConstants.AUTHORIZATION_CHECK;
+import static be.bittich.website.util.RouterConstants.NOT_FOUND;
 
 /**
  * Created by Nordine on 20-10-15.
  */
 @Named
-public class GlobalRouteBuilder extends SpringRouteBuilder {
+public class GlobalRouter extends SpringRouteBuilder {
 
 
     @Override
@@ -32,5 +34,11 @@ public class GlobalRouteBuilder extends SpringRouteBuilder {
                 .transform(constant(RestMessage.builder().message("Resource Not Found.").build()))
                 .marshal().json(JsonLibrary.Jackson)
         ;
+
+        from(AUTHORIZATION_CHECK)
+                .routeId("Authorization.Check")
+                .log("Hello")
+        ;
+
     }
 }

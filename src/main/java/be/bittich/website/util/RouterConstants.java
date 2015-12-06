@@ -1,13 +1,9 @@
 package be.bittich.website.util;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.camel.Processor;
 
-import static be.bittich.website.util.RouterConstants.*;
 
 /**
  * Created by Nordine on 18-10-15.
  */
-@Slf4j
 public final class RouterConstants {
 
 
@@ -25,9 +21,14 @@ public final class RouterConstants {
     public static final String  HEADER_DOMAIN = "CamelHeaderDomain";
     public static final String  HEADER_ID = "${headers.id}";
 
+    public static final String  HEADER_IP_ADDRESS = "CamelHeaderIpAddress";
+    public static final String  HEADER_SECURITY_ROLE = "CamelHeaderSecurityRole";
+    public static final  String NETTY_HEADER = "${headers.CamelNettyRemoteAddress}";
+
     public static final String DISPATCHER_ENDPOINT = "jms:topic:Dispatcher";
 
     public static String ACKNOWLEDGMENT_OK = "direct:ackOk";
+    public static String AUTHORIZATION_CHECK = "direct:authorization";
     public static final String NOT_FOUND = "direct:notFound";
 
 
