@@ -9,9 +9,7 @@ import javax.inject.Named;
 import static be.bittich.website.util.RouterConstants.*;
 
 
-/**
- * Created by Nordine on 18-10-15.
- */
+
 @Named
 public class AboutMeRouter extends SpringRouteBuilder {
 
