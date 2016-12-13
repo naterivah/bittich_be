@@ -15,8 +15,6 @@ spring:
           auth: true
           ssl:
             enable: true
-  activemq:
-    pooled: true
   datasource:
     username: root
     password: root

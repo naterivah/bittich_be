@@ -24,9 +24,6 @@ import javax.jms.ConnectionFactory;
 import javax.sql.DataSource;
 
 
-/**
- * Created by Nordine on 07-11-15.
- */
 @EnableCaching
 @EnableJms
 @Slf4j
@@ -50,14 +47,6 @@ public class ContextConfiguration implements CommandLineRunner {
         return new JdbcTemplate(dataSource);
     }
 
-
-    @Bean
-    @Inject
-    public JmsComponent activeMQComponent(ConnectionFactory connectionFactory) {
-        JmsComponent component = JmsComponent.jmsComponentTransacted(connectionFactory);
-        component.setConcurrentConsumers(1);
-        return component;
-    }
 
     @Bean
     public RouteBuilder restConfig(){

@@ -5,9 +5,6 @@ import static be.bittich.website.util.RouterConstants.*;
 
 import javax.inject.Named;
 
-/**
- * Created by Nordine on 07-11-15.
- */
 @Named
 public class AboutMeEventConsumer extends SpringRouteBuilder {
 

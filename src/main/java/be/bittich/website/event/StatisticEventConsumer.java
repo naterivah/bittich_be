@@ -8,9 +8,7 @@ import static be.bittich.website.util.RouterConstants.*;
 import static java.lang.String.format;
 import static org.apache.camel.Exchange.HTTP_METHOD;
 
-/**
- * Created by Nordine on 07-11-15.
- */
+
 @Named
 public class StatisticEventConsumer extends SpringRouteBuilder {
 

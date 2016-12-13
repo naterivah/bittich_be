@@ -7,10 +7,6 @@ import javax.inject.Named;
 import static be.bittich.website.util.RouterConstants.DISPATCHER_ENDPOINT;
 import static be.bittich.website.util.RouterConstants.HEADER_DOMAIN;
 
-/**
- * Created by Nordine on 07-11-15.
- */
-
 @Named
 public class EventDispatcher extends SpringRouteBuilder {
 

@@ -8,9 +8,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-/**
- * Created by Nordine on 07-11-15.
- */
 @Entity
 @Builder
 @Data
